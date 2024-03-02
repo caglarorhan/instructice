@@ -1,0 +1,27 @@
+{
+  "name": "instructice",
+  "version": "2004.0.1",
+  "description": "Creating instructory steps for web applications",
+  "main": "intructice.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caglarorhan/instructice.git"
+  },
+  "keywords": [
+    "instruction",
+    "creating",
+    "instructice"
+  ],
+  "author": "Caglar Orhan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/caglarorhan/instructice/issues"
+  },
+  "homepage": "https://github.com/caglarorhan/instructice#readme",
+  "devDependencies": {
+    "vitest": "^1.3.1"
+  }
+}
