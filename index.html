@@ -3,11 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Instructice: Creating Introductory Steps for Your Web App</title>
-    <script type="module" src="./src/instructice.js"></script>
+    <style>
+        button.testButton {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            color: darkblue;
+            font-size:30px;
+            margin: 10px;
+            font-weight:bold;
+        }
+        button.testButton:hover {
+            background-color: lightgreen;
+            color: darkgreen;
+        }
+        button.testButton:active {
+            background-color: darkblue;
+            color: lightblue;
+        }
+        button.testButton.notice {
+            background-color: darkblue;
+            color: lightblue;
+        }
+    </style>
 </head>
 <body>
+<button class="testButton" id="button1">1</button>
+<button class="testButton" id="button2">2</button>
+<button class="testButton" id="button3">3</button>
+<button class="testButton" id="button4">4</button>
 <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 300px;">
     <span id="theUniqueID" style="width: 300px; height: 300px; background-color: red">TEST</span>
 </div>
+<script type="module">
+import Instructice from "./src/instructice.js";
+let instructice = new Instructice('instructiceStarter');
+//instructice.start();
+
+</script>
+<img id="instructiceStarter" src="img/instructions.svg" alt="Click to practice with instructions!" style="cursor:pointer; position: absolute; top:calc(100vh - 200px); left:10px; width:100px ;height:100px" title="Click to practice with instructions!">
 </body>
 </html>

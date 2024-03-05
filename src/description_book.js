@@ -1,6 +1,18 @@
 let descriptions = {
     version: "1.0.0",
-    types: ["text", "image", "video", "audio", "animation"],
+    types: {
+        shape:{
+            type:String,
+            text:String
+        },
+        text:{
+            value:String,
+        },
+        image:{},
+        video:{},
+        audio:{},
+        animation:{}
+        },
     animations:{
         drop:"drop",
         fade:"fade",
@@ -67,11 +79,25 @@ let descriptions = {
         slideInDown:"slideInDown"
     },
     come_with: {
-        load:{},
-        ordered: {},
-        random:{},
-        withprevious:{},
-        withnext:{}
+        load:{
+            after:Event,
+            target:HTMLElement
+        },
+        ordered: {
+            delay:Number,
+        },
+        random:{
+            position:{
+                x:Number,
+                y:Number
+            }
+        },
+        withPrevious:{
+            instructionId:String
+        },
+        withNext:{
+            instructionId:String
+        }
     }
 }
 export default descriptions;
