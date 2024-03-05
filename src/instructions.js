@@ -46,12 +46,16 @@ let  instructions = {
             {
               target:"button1",
               notice_class:"notice",
-              event:"click"
+              event:"click",
+              wait_after:2000,
+              wait_before:1000
             },
             {
               target:"button3",
               notice_class:"notice",
-              event:"click"
+              event:"click",
+              wait_after:2000,
+              wait_before:1000
             }
           ],
           end_action:{

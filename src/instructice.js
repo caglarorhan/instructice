@@ -5,17 +5,36 @@ class Instructice{
         if(!instructions) throw new Error("Instructions are required, checkout for instructions.js file");
         this.instructions = instructions.list;
         this.runList = [];
+        this.isRunning = false;
 let starterElement = document.getElementById(triggerId);
 util.animateFloating(triggerId);
 starterElement.addEventListener('click', this.start.bind(this));
+let stopButton = document.getElementById('stopButton');
+stopButton.addEventListener('click', this.stop.bind(this));
         }
        async start(){
+        if(this.isRunning) return;
+        this.isRunning = true;
             this.prepareRunList();
             for(const subRunList of this.runList){
                 console.log('Set islemeye basladi');
                 await Promise.all(subRunList.map(inst=>inst.process()));
                 console.log('----------------Set Bitti')
             }
+            this.isRunning = false;
+        }
+        stop(){
+        //must clean up the runList elements
+            for(const subRunList of this.runList){
+                for(const inst of subRunList){
+                    let container = document.getElementById(inst.id);
+                    if(container){
+                        container.remove();
+                    }
+                }
+            }
+            this.isRunning = false;
+            this.runList = [];
         }
     prepareRunList(){
         for(const instruction of this.instructions){
@@ -45,6 +64,7 @@ class Instruction{
         // Simulate the processing of the instruction
         console.log(`Processing instruction: ${this.id}`);
         let container = document.createElement('div');
+        container.id = this.id;
         container.innerHTML = this.data.value;
         container.style.border = '1px solid black';
         container.style.zIndex = 1000;
@@ -69,11 +89,16 @@ class Instruction{
         if(this.actions && this.actions.length>0){
             for(const action of this.actions){
                 let theEvent = new Event(action.event);
-                document.getElementById(action.target).classList.add(action.notice_class)
-                document.getElementById(action.target).dispatchEvent(theEvent);
+                let waitBefore = action.wait_before || 200;
+                    setTimeout(()=>{
+                        document.getElementById(action.target).classList.add(action.notice_class)
+                        document.getElementById(action.target).dispatchEvent(theEvent);
+                    },waitBefore);
+                let waitAfter = action.wait_after || 200;
                 setTimeout(()=>{
                     document.getElementById(action.target).classList.remove(action.notice_class)
-                }, 500);
+                }, waitAfter)
+
             }
         }
 
