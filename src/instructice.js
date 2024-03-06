@@ -6,38 +6,49 @@ class Instructice{
         this.instructions = instructions.list;
         this.runList = [];
         this.isRunning = false;
+
 let starterElement = document.getElementById(triggerId);
 util.animateFloating(triggerId);
 starterElement.addEventListener('click', this.start.bind(this));
 let stopButton = document.getElementById('stopButton');
 stopButton.addEventListener('click', this.stop.bind(this));
         }
-       async start(){
+       async start(event){
+        event.preventDefault();
         if(this.isRunning) return;
         this.isRunning = true;
-            this.prepareRunList();
-            for(const subRunList of this.runList){
+           this.controller = new AbortController();
+            await this.prepareRunList();
+            console.log('runList hazirlandi, ASAGIDA');
+            console.log(this.runList);
+            while(this.runList.length){
+                let subRunList = this.runList.shift();
                 console.log('Set islemeye basladi');
-                await Promise.all(subRunList.map(inst=>inst.process()));
+                await Promise.all(subRunList.map(inst=>inst.process(this.controller.signal)));
                 console.log('----------------Set Bitti')
             }
             this.isRunning = false;
         }
         stop(){
+        console.log(this);
+        this.controller.abort();
+        this.controller = null;
         //must clean up the runList elements
-            for(const subRunList of this.runList){
-                for(const inst of subRunList){
-                    let container = document.getElementById(inst.id);
+            for(const ins of this.instructions){
+                    let container = document.getElementById(ins.id);
                     if(container){
+                        console.log('Removed:', container.toString())
                         container.remove();
                     }
-                }
+
             }
             this.isRunning = false;
+            console.log(this.runList);
             this.runList = [];
+            console.log(this.runList);
         }
     prepareRunList(){
-        for(const instruction of this.instructions){
+        for(const instruction of this.instructions.filter(inst=>inst.just_backup===false)){
             let inst = new Instruction(instruction);
             let subRunList=[];
             subRunList.push(inst);
@@ -58,9 +69,10 @@ class Instruction{
         Object.entries(instruction).forEach(([key, value])=>{
             this[key] = value;
         });
-        console.log(this)
+        console.log(this);
+        this.timeouts = [];
     }
-    async process(){
+    async process(signal){
         // Simulate the processing of the instruction
         console.log(`Processing instruction: ${this.id}`);
         let container = document.createElement('div');
@@ -83,32 +95,41 @@ class Instruction{
                 container.style.left = containerPosition.x+'px';
                 container.style.top = containerPosition.y+'px';
             }
+        }else{
+            container.style.left = this.data.x+'px';
+            container.style.top = this.data.y+'px';
         }
+
 
         document.body.appendChild(container);
         if(this.actions && this.actions.length>0){
             for(const action of this.actions){
                 let theEvent = new Event(action.event);
                 let waitBefore = action.wait_before || 200;
-                    setTimeout(()=>{
+                this.timeouts.push(setTimeout(()=>{
                         document.getElementById(action.target).classList.add(action.notice_class)
                         document.getElementById(action.target).dispatchEvent(theEvent);
-                    },waitBefore);
+                    },waitBefore));
                 let waitAfter = action.wait_after || 200;
-                setTimeout(()=>{
+                this.timeouts.push(setTimeout(()=>{
                     document.getElementById(action.target).classList.remove(action.notice_class)
-                }, waitAfter)
+                }, waitAfter));
 
             }
         }
 
-        return new Promise(resolve=>{
+        return new Promise((resolve,reject)=>{
+            if(signal.aborted){
+                this.timeouts.forEach(timeout=>clearTimeout(timeout));
+                reject(new DOMException('Aborted', 'AbortError'));
+
+            }
             switch (this.end_action.type) {
                 case "time":
-                    setTimeout(()=>{
+                    this.timeouts.push(setTimeout(()=>{
                         container.remove();
                         resolve();
-                    }, this.end_action.after);
+                    }, this.end_action.after));
                     break;
                 case "trigger":
                     document.getElementById('theUniqueID').addEventListener(this.end_action.event, ()=>{
@@ -116,15 +137,22 @@ class Instruction{
                         if(!this.end_action.after || this.end_action.after===0){
                             resolve();
                         }else{
-                            setTimeout(()=>{
+                            this.timeouts.push(setTimeout(()=>{
                                 resolve();
-                            }, this.end_action.after);
+                            }, this.end_action.after));
                         }
                     }   )
                     break;
                 default:
                     resolve();
 
+            }
+        }).catch(err=>{
+            if(err.name==='AbortError'){
+                console.log('Promise aborted!');
+                this.timeouts.forEach(timeout => clearTimeout(timeout));
+            }else{
+                console.log('Another error:',err);
             }
         })
 

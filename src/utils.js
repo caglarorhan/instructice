@@ -51,6 +51,9 @@ let utility = {
             let progress = timestamp - start;
             let sin = Math.sin(progress / 1000); // Change 1000 to affect the speed
             targetElement.style.transform = `translateY(${sin * 20}px)`; // Change 20 to affect the distance
+
+            // Keep a constant blurry shadow
+
             requestAnimationFrame(float);
         }
 

@@ -5,8 +5,9 @@ let  instructions = {
       list: [
         {
           id: "mainInstruction",
-          run_with:[],
+          run_with:["sideInstruction_1B"],
           type:"text",
+          just_backup:false,
           data:{
             color: "black",
             bgColor: "white",
@@ -29,12 +30,13 @@ let  instructions = {
           id: "sideInstruction_1A",
           run_with:[],
           type: "text",
+          just_backup:false,
           data:{
             color: "black",
             bgColor: "white",
             width: "200",
             height: "50",
-            value: "If you read this, click the red square in the middle of page!",
+            value: "If you read this, mouseover red square in the middle of page!",
             position: "absolute",
             has_target: true,
             target: "theUniqueID",
@@ -61,7 +63,7 @@ let  instructions = {
           end_action:{
             type: "trigger",
             target:"theUniqueID",
-            event:"click",
+            event:"mouseover",
             after:1
           }
         },
@@ -69,6 +71,7 @@ let  instructions = {
           id: "sideInstruction_1B",
           run_with:[],
           type: "text",
+          just_backup:true,
           data:{
             color: "black",
             bgColor: "white",
@@ -84,7 +87,7 @@ let  instructions = {
             type: "time",
             target:"",
             event:"",
-            after:5000
+            after:6000
           }
         }
       ]
