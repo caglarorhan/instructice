@@ -25,9 +25,23 @@
             background-color: darkblue;
             color: lightblue;
         }
-        img#instructiceStarter{
-
+        .instructiceStarter{
+            background-color: transparent;
+            cursor:pointer;
+            position: absolute;
+            top:calc(100vh - 200px);
+            left:10px;
+            width:100px ;
+            height:100px
                  }
+        .instructiceStopper{
+            position: absolute;
+            right: 5px;
+            top:0;
+            z-index: 9999
+        }
+
+
     </style>
 </head>
 <body>
@@ -40,12 +54,9 @@
 </div>
 <script type="module">
 import Instructice from "./src/instructice.js";
-let instructice = new Instructice('instructiceStarter');
-//instructice.start();
+let instructice = new Instructice();
 
 </script>
 
-<img id="instructiceStarter" src="img/instructions.svg" alt="Click to practice with instructions!" style="background-color: transparent; cursor:pointer; position: absolute; top:calc(100vh - 200px); left:10px; width:100px ;height:100px" title="Click to practice with instructions!">
-<button id="stopButton" style="position: absolute; right: 5px; top:0; z-index: 9999">STOP</button>
 </body>
 </html>

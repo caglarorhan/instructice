@@ -2,6 +2,26 @@ import descriptions from "./description_book.js";
 let d = descriptions;
 let  instructions = {
       version: "1.0.0",
+      instructice_starter:{
+        auto:false,
+        from_app:false,
+        id:"instructiceStarter",
+        type:"img",
+        class_name:"instructiceStarter",
+        value:"../img/instructions.svg",
+        title:"Click to practice with instructions!",
+        alt:"Click to practice with instructions!"
+      },
+      instructice_stopper:{
+        auto:false,
+        from_app:false,
+        type:"button",
+        class_name:"instructiceStopper",
+        value:"STOP THE INSTRUCTIONS",
+        id:"stopButton",
+        title:"Click to practice with instructions!",
+        alt:"Click to practice with instructions!"
+      },
       list: [
         {
           id: "mainInstruction",

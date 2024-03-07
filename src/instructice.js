@@ -1,20 +1,50 @@
 import util from './utils.js';
 import instructions from './instructions.js';
 class Instructice{
-    constructor(triggerId) {
+    constructor() {
         if(!instructions) throw new Error("Instructions are required, checkout for instructions.js file");
-        this.instructions = instructions.list;
+        this.instructions = instructions;
+        this.instructionList = instructions.list;
         this.runList = [];
         this.isRunning = false;
+            if(!this.instructions.instructice_starter.auto) {
+                if (!instructions.instructice_starter.from_app) {
+                    this.starterElement = document.createElement(instructions.instructice_starter.type);
+                    this.starterElement.src = instructions.instructice_starter.value;
+                    this.starterElement.id = instructions.instructice_starter.id;
+                    this.starterElement.className = instructions.instructice_starter.class_name;
+                    this.starterElement.title = instructions.instructice_starter.title;
+                    this.starterElement.alt = instructions.instructice_starter.alt;
+                    document.body.appendChild(this.starterElement);
+                } else {
+                    this.starterElement = document.getElementById(instructions.instructice_starter.id);
+                }
+                util.animateFloating(this.starterElement.id);
+                this.starterElement.addEventListener('click', this.start.bind(this));
+            }else{
+                this.start().then(r=>r);
+            }
+            if(!this.instructions.instructice_stopper.auto) {
+                if (!this.instructions.instructice_stopper.from_app) {
+                    this.stopperElement = document.createElement(instructions.instructice_stopper.type);
+                    this.stopperElement.textContent = instructions.instructice_stopper.value;
+                    this.stopperElement.id = instructions.instructice_stopper.id;
+                    this.stopperElement.className = instructions.instructice_stopper.class_name;
+                    this.stopperElement.title = instructions.instructice_stopper.title;
+                    this.stopperElement.alt = instructions.instructice_stopper.alt;
+                    document.body.appendChild(this.stopperElement);
+                } else {
+                    this.stopperElement = document.getElementById(instructions.instructice_stopper.id);
+                }
+                this.stopperElement.addEventListener('click', this.stop.bind(this));
+            }
 
-let starterElement = document.getElementById(triggerId);
-util.animateFloating(triggerId);
-starterElement.addEventListener('click', this.start.bind(this));
-let stopButton = document.getElementById('stopButton');
-stopButton.addEventListener('click', this.stop.bind(this));
+
+
+
         }
        async start(event){
-        event.preventDefault();
+        if(event)event.preventDefault();
         if(this.isRunning) return;
         this.isRunning = true;
            this.controller = new AbortController();
@@ -34,7 +64,7 @@ stopButton.addEventListener('click', this.stop.bind(this));
         this.controller.abort();
         this.controller = null;
         //must clean up the runList elements
-            for(const ins of this.instructions){
+            for(const ins of this.instructionList){
                     let container = document.getElementById(ins.id);
                     if(container){
                         console.log('Removed:', container.toString())
@@ -48,13 +78,13 @@ stopButton.addEventListener('click', this.stop.bind(this));
             console.log(this.runList);
         }
     prepareRunList(){
-        for(const instruction of this.instructions.filter(inst=>inst.just_backup===false)){
+        for(const instruction of this.instructionList.filter(inst=>inst.just_backup===false)){
             let inst = new Instruction(instruction);
             let subRunList=[];
             subRunList.push(inst);
             if(inst.run_with.length>0){
                 inst.run_with.forEach(instId=>{
-                    let theInst = this.instructions.find(inst=>inst.id===instId);
+                    let theInst = this.instructionList.find(inst=>inst.id===instId);
                     subRunList.push(new Instruction(theInst));
                 })
             }
