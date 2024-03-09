@@ -77,7 +77,7 @@ class Instructice{
             this.runList = [];
             console.log(this.runList);
         }
-    prepareRunList(){
+        prepareRunList(){
         for(const instruction of this.instructionList.filter(inst=>inst.just_backup===false)){
             let inst = new Instruction(instruction);
             let subRunList=[];
@@ -102,9 +102,7 @@ class Instruction{
         console.log(this);
         this.timeouts = [];
     }
-    async process(signal){
-        // Simulate the processing of the instruction
-        console.log(`Processing instruction: ${this.id}`);
+    createContainer(){
         let container = document.createElement('div');
         container.id = this.id;
         container.innerHTML = this.data.value;
@@ -115,6 +113,16 @@ class Instruction{
         container.style.position = this.data.position;
         container.style.width = this.data.width + 'px';
         container.style.height = this.data.height + 'px';
+        return container;
+    }
+    appendContainerToBody(container){
+        document.body.appendChild(container);
+    }
+    async process(signal){
+        // Simulate the processing of the instruction
+        console.log(`Processing instruction: ${this.id}`);
+        let container = this.createContainer();
+        this.appendContainerToBody(container);
         if(this.data.has_target){
             let target = document.getElementById(this.data.target);
             let targetRect = target.getBoundingClientRect();
@@ -162,7 +170,7 @@ class Instruction{
                     }, this.end_action.after));
                     break;
                 case "trigger":
-                    document.getElementById('theUniqueID').addEventListener(this.end_action.event, ()=>{
+                    document.getElementById(this.end_action.target).addEventListener(this.end_action.event, ()=>{
                         container.remove();
                         if(!this.end_action.after || this.end_action.after===0){
                             resolve();

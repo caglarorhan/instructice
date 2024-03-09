@@ -1,5 +1,3 @@
-import descriptions from "./description_book.js";
-let d = descriptions;
 let  instructions = {
       version: "1.0.0",
       instructice_starter:{
@@ -33,7 +31,7 @@ let  instructions = {
             bgColor: "white",
             width: "300",
             height: "50",
-            value: "Disappear by time, 5 second actually!",
+            value: "Disappear by time, 5 second actually! Also positioned absolute with given x and y",
             position: "absolute",
             has_target: false,
             x: 500,
@@ -54,9 +52,9 @@ let  instructions = {
           data:{
             color: "black",
             bgColor: "white",
-            width: "200",
-            height: "50",
-            value: "If you read this, mouseover red square in the middle of page!",
+            width: "250",
+            height: "60",
+            value: "After Button 1 and Button 3 clicked,  mouseover red square in the middle of page complete the actions!",
             position: "absolute",
             has_target: true,
             target: "theUniqueID",
@@ -97,7 +95,7 @@ let  instructions = {
             bgColor: "white",
             width: "200",
             height: "50",
-            value: "Third test is here, also disappears by time!",
+            value: "Third test is here, also disappears by time, 6 seconds!",
             position: "absolute",
             has_target: false,
             x: 900,
@@ -109,7 +107,31 @@ let  instructions = {
             event:"",
             after:6000
           }
-        }
+        },
+        {
+          id: "inputChecker",
+          run_with:[],
+          type: "text",
+          just_backup:false,
+          data:{
+            color: "black",
+            bgColor: "white",
+            width: "200",
+            height: "50",
+            value: "Type something to this input field!",
+            position: "absolute",
+            has_target: true,
+            target: "myInput",
+            stick_to: "righttop",
+            x: 900,
+            y: 10
+          },
+          end_action:{
+            type: "trigger",
+            target:"myInput",
+            event:"change",
+            after:1}
+        },
       ]
 }
 

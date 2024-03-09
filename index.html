@@ -50,12 +50,24 @@
 <button class="testButton" id="button3">3</button>
 <button class="testButton" id="button4">4</button>
 <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top: 300px;">
-    <span id="theUniqueID" style="width: 300px; height: 300px; background-color: red">TEST</span>
+    <span id="theUniqueID" style="width: 300px; height: 300px; background-color: red; color:white; font-size: 20px; text-align: center">Mouseover Test</span>
+    <span style="margin-left:100px;"><label for="myInput">Test Input:</label><input type="text" id="myInput"></span>
 </div>
 <script type="module">
-import Instructice from "./src/instructice.js";
-let instructice = new Instructice();
+    window.onerror = function(message, source, lineno, colno, error) {
+        if (error && error.code === "MODULE_NOT_FOUND") {
+            console.error(`The module ${source} could not be found.`);
+        }
+    };
 
+    import("./src/instructice.js")
+        .then(module => {
+            let Instructice = module.default;
+            let instructice = new Instructice();
+        })
+        .catch(error => {
+            console.error(`An error occurred while importing the module: ${error}`);
+        });
 </script>
 
 </body>
