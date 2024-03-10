@@ -1,8 +1,8 @@
 {
   "name": "instructice",
-  "version": "2004.0.1",
+  "version": "2024.0.1",
   "description": "Creating instructory steps for web applications",
-  "main": "intructice.js",
+  "main": "src/intructice.js",
   "scripts": {
     "test": "test"
   },

@@ -6,7 +6,7 @@ let  instructions = {
         id:"instructiceStarter",
         type:"img",
         class_name:"instructiceStarter",
-        value:"../img/instructions.svg",
+        value:"./img/instructions.svg",
         title:"Click to practice with instructions!",
         alt:"Click to practice with instructions!"
       },
