@@ -1,8 +1,9 @@
 **Instructice: Creating Introductory Steps for Your Web App**
 
 # Instructice: Creating Interactive Demonstrations for Your Web App
+- You can try it [here](https://caglarorhan.github.io/instructice/)
 
-## Table of Contents
+### Table of Contents
 1. [General Info](#general-info)
 2. [Technologies](#technologies)
 3. [Installation](#installation)
@@ -10,7 +11,7 @@
 5. [Contributing](#contributing)
 6. [License](#license)
 
-## General Info
+### General Info
 Instructice is a library that allows you to create interactive demonstrations for any web application. It is still in development, so is still very immature. It enables you to guide users through your application with user actions like events and information tooltips. All data and options are configurable through the `instructions.js` file.
 
 ## Usage
@@ -37,7 +38,7 @@ To use Instructice, you need to create an instructions.js file in your project. 
 ### Contributing
 Contributions to Instructice are welcome. Feel free to fork the repository and submit a pull request. We also welcome any issues or suggestions for improvements.  
 
-## Issues
+### Issues
 If you encounter any problems or have any suggestions for Instructice, please feel free to open an issue on our GitHub repository. We appreciate your feedback and will do our best to respond to your concerns in a timely manner.
 
 ### License
