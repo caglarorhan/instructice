@@ -6,9 +6,9 @@
 ### Table of Contents
 1. [General Info](#general-info)
 2. [Technologies](#technologies)
-3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Contributing](#contributing)
+3. [Usage](#usage)
+4. [Contributing](#contributing)
+5. [Issues](#issues)
 6. [License](#license)
 
 ### General Info

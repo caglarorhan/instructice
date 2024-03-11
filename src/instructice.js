@@ -24,12 +24,16 @@ class Instructice{
             }else{
                 this.start().then(r=>r);
             }
+
             if(!this.instructions.instructice_stopper.auto) {
                 if (!this.instructions.instructice_stopper.from_app) {
                     this.stopperElement = document.createElement(instructions.instructice_stopper.type);
                     this.stopperElement.textContent = instructions.instructice_stopper.value;
                     this.stopperElement.id = instructions.instructice_stopper.id;
                     this.stopperElement.className = instructions.instructice_stopper.class_name;
+                    if(this.instructions.start_stop_switch.switch_between){
+                        this.stopperElement.style.display = 'none';
+                    }
                     this.stopperElement.title = instructions.instructice_stopper.title;
                     this.stopperElement.alt = instructions.instructice_stopper.alt;
                     document.body.appendChild(this.stopperElement);
@@ -40,10 +44,9 @@ class Instructice{
             }
 
 
-
-
         }
        async start(event){
+           this.switch({isStopped: false});
         if(event)event.preventDefault();
         if(this.isRunning) return;
         this.isRunning = true;
@@ -58,6 +61,7 @@ class Instructice{
                 console.log('----------------Set Bitti')
             }
             this.isRunning = false;
+            this.switch({isStopped: true});
         }
         stop(){
         console.log(this);
@@ -76,6 +80,18 @@ class Instructice{
             console.log(this.runList);
             this.runList = [];
             console.log(this.runList);
+this.switch({isStopped: true});
+        }
+        switch(dataObj={isStopped:Boolean}){
+            if(this.instructions.start_stop_switch.switch_between){
+                    if(this.starterElement.style.display==='none' && dataObj.isStopped){
+                        this.starterElement.style.display = '';
+                        this.stopperElement.style.display = 'none';
+                    }else if(this.starterElement.style.display==='' && !dataObj.isStopped){
+                        this.starterElement.style.display = 'none';
+                        this.stopperElement.style.display = '';
+                    }
+            }
         }
         prepareRunList(){
         for(const instruction of this.instructionList.filter(inst=>inst.just_backup===false)){

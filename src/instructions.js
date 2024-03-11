@@ -1,5 +1,10 @@
 let  instructions = {
       version: "1.0.0",
+      for_url: "https://caglarorhan.github.io/instructice/",
+      start_stop_switch: {
+        is_switch_on:true,
+        switch_between:true
+      },
       instructice_starter:{
         auto:false,
         from_app:false,
