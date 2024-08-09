@@ -15,7 +15,8 @@
 Instructice is a library that allows you to create interactive demonstrations for any web application. It is still in development, so is still very immature. It enables you to guide users through your application with user actions like events and information tooltips. All data and options are configurable through the `instructions.js` file.
 
 ## Usage
-To use Instructice, you need to create an instructions.js file in your project. This file should export an object that defines the instructions for your demonstration. The instructions include various elements like text, images, buttons, and their associated actions. Each instruction can be configured to run with other instructions, have a backup, and end after a certain action or time.  Here's an example of what an instructions.js file might look like:
+To use Instructice, you need to create an instructions.js file in your project. This file should export an object that defines the instructions for your demonstration. The instructions include various elements like text, images, buttons, and their associated actions. Each instruction can be configured to run with other instructions, have a backup, and end after a certain action or time.  Here's how to add instructice to our page:
+``
 
 ``` 
 <script type="module">
