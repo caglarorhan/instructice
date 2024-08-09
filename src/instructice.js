@@ -31,7 +31,7 @@ class Instructice{
                     this.stopperElement.textContent = instructions.instructice_stopper.value;
                     this.stopperElement.id = instructions.instructice_stopper.id;
                     this.stopperElement.className = instructions.instructice_stopper.class_name;
-                    if(this.instructions.start_stop_switch.switch_between){
+                    if(this.instructions.start_stop_switch.is_switch_on){
                         this.stopperElement.style.display = 'none';
                     }
                     this.stopperElement.title = instructions.instructice_stopper.title;
@@ -83,7 +83,7 @@ class Instructice{
 this.switch({isStopped: true});
         }
         switch(dataObj={isStopped:Boolean}){
-            if(this.instructions.start_stop_switch.switch_between){
+            if(this.instructions.start_stop_switch.is_switch_on){
                     if(this.starterElement.style.display==='none' && dataObj.isStopped){
                         this.starterElement.style.display = '';
                         this.stopperElement.style.display = 'none';

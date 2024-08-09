@@ -2,8 +2,7 @@ let  instructions = {
       version: "1.0.0",
       for_url: "https://caglarorhan.github.io/instructice/",
       start_stop_switch: {
-        is_switch_on:true,
-        switch_between:true
+        is_switch_on:true
       },
       instructice_starter:{
         auto:false,
@@ -11,7 +10,7 @@ let  instructions = {
         id:"instructiceStarter",
         type:"img",
         class_name:"instructiceStarter",
-        value:"../img/instructions.svg",
+        value:"./img/instructions.svg",
         title:"Click to practice with instructions!",
         alt:"Click to practice with instructions!"
       },
