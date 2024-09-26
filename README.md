@@ -36,6 +36,54 @@ To use Instructice, you need to create an instructions.js file in your project. 
         });
 </script>
 ```
+
+- create an `instructions` object like below. 
+
+
+```
+let  instructions = {
+      version: "1.0.0",
+      for_url: "https://caglarorhan.github.io/instructice/",
+      start_stop_switch: {
+        is_switch_on:true
+      },
+      instructice_starter:{
+        auto:false,
+        from_app:false,
+        id:"instructiceStarter",
+        type:"img",
+        class_name:"instructiceStarter",
+        value:"./img/instructions.svg",
+        title:"Click to practice with instructions!",
+        alt:"Click to practice with instructions!"
+      },
+      instructice_stopper:{
+        auto:false,
+        from_app:false,
+        type:"button",
+        class_name:"instructiceStopper",
+        value:"STOP THE INSTRUCTIONS",
+        id:"stopButton",
+        title:"Click to practice with instructions!",
+        alt:"Click to practice with instructions!"
+      },
+      list: [
+```
+
+If there is a start-stop switch it will be used to start the instruction steps and if there is a stopper other than starter it can be used to stop the instructions.
+
+If same element id given for both start and stop, it will switch the instruction start-stop.
+
+
+
+*list* is an array of objects. Each object represents an element with one or multiple scenarios. These scenarios may solo or consecutive, they can have data (which is a text baloon for explanation as data next to the target element), can have actions and a stopper (end_action).
+
+<img src="./img/instruction_sample_object_1.JPG">
+
+Elements scenarios might have no actions at all.
+
+<img src="./img/instruction_sample_object_2.JPG">
+
 ### Contributing
 Contributions to Instructice are welcome. Feel free to fork the repository and submit a pull request. We also welcome any issues or suggestions for improvements.  
 
